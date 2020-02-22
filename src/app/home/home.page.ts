@@ -17,7 +17,7 @@ export class HomePage {
     {
       numero: "002", nome: "charmander",
       tipos: ["Grass", "Poison"],
-      img:"https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png",
+      img: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png",
     },
 
 
@@ -52,13 +52,39 @@ export class HomePage {
       tipos: ["Grass", "Poison"],
       img: "https://assets.pokemon.com/assets/cms2/img/pokedex/full/805.png",
     },
-     
+
   ];
 
   public listaFiltrada = [];
 
+  constructor() {
+    this.resetarLista();
+  }
 
-  contructor() { }
+  public resetarLista() {
+
+    this.listaFiltrada = this.listaPokemons;
+  }
+
+  public buscarPokemon(evento: any) {
+    let busca = evento.target.value;
+    this.resetarLista;
+
+    if (busca && busca.trim() != '') {
+      this.listaFiltrada = this.listaFiltrada.filter(dados => {
+
+        if ((dados.nome.toLowerCase().indexOf(busca.toLowerCase()) > -1) || (dados.numero.toLowerCase().indexOf(busca.toLowerCase()) > -1)) {
+          return true;
+        }
+        return false;
+
+      })
+      }
+  }
+
 
 }
+
+
+
 
