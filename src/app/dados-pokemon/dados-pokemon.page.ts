@@ -23,3 +23,4 @@ export class DadosPokemonPage implements OnInit {
   }
 
 }
+ 
