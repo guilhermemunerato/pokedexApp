@@ -9,7 +9,7 @@ export class PokedexApiService {
 
   constructor(public http:HttpClient) { }
 
-  public listarPokemons(offset:number,limit = 20) {
+  public listarPokemonsApi(offset:number,limit = 20) {
 
     /// reduzir e chamar `crase`
 return this.http.get(`${this.url}/?offset=${offset}&limit=${limit}`);
