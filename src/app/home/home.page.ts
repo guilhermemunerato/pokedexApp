@@ -60,20 +60,44 @@ export class HomePage {
 
   public listaFiltrada = [];
 
-  public listaPokemonApi: any;
+  public listaPokemonApi: [];
+  public offsetGeral = 0;
+  public limiteGeral = 10;
+  public paginaAtual = 0;
+  public totalPokemons = 0;
 
-  constructor(public dadosService: DadosService, public router:Router,public pokeApi:PokedexApiService) {
-    this.buscaPokemonApi();
+
+
+  constructor(public dadosService: DadosService, public router: Router, public pokeApi: PokedexApiService) {
+    this.buscaPokemonApi(this.offsetGeral, this.limiteGeral);
   }
+  // busca os pokemons na Apio quiando abre a pagina..
 
 
 
-  public buscaPokemonApi(offset=0){
-   this.pokeApi.listarPokemons(offset).subscribe(dados=>{
-   this.listaPokemonApi = dados;
-    console.log(this.listaPokemons);
+  public buscaPokemonApi(offset, limit) {
+    this.pokeApi.listarPokemonsApi(offset, limit).subscribe(dados => {
+      console.log(dados);
 
-   });
+      // pega o total de pokemons
+
+      this.totalPokemons = dados['count'];
+
+      this.listaPokemonApi = dados['result'];
+
+      for (let item of listaApi){
+        // busca todos os dados do pokemon usando a URl dele
+        this.pokeApi.buscarPokemonUrl(it.url).subscribe(dadosPokemon => {
+          this.listaPokemonApi.push(dadosPokemon);
+
+
+
+        })
+      }
+      this.resetarLista;
+
+
+    });
 
   }
 
@@ -82,14 +106,14 @@ export class HomePage {
     this.listaFiltrada = this.listaPokemons;
   }
 
-  public abrirDadosPokemon(pokemon:any){
+  public abrirDadosPokemon(pokemon: any) {
 
     //salva os dados no Banco virtual
 
-this.dadosService.setDados('dadosPokemon',pokemon);
+    this.dadosService.setDados('dadosPokemon', pokemon);
 
-//abre outra pagina por navegação
-this.router.navigateByUrl('/dados-pokemon');
+    //abre outra pagina por navegação
+    this.router.navigateByUrl('/dados-pokemon');
   }
 
   public buscarPokemon(evento: any) {
@@ -105,7 +129,7 @@ this.router.navigateByUrl('/dados-pokemon');
         return false;
 
       })
-      }
+    }
   }
 
 
