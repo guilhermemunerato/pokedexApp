@@ -11,11 +11,12 @@ export class DadosPokemonPage implements OnInit {
 
   public pokemon;
 
-
-  constructor(public dadosService: DadosService,public router:Router) { 
-    this.pokemon=this.dadosService.getDados('dadosPokemon')
+  constructor(public dadosService: DadosService, public router: Router) { 
+    this.pokemon = this.dadosService.getDados('dadosPokemon');
+    
     if(!this.pokemon){
-      this.router.navigateByUrl ('/home');
+      //Volta para a lista se não tiver os dados do pokemon
+      this.router.navigateByUrl('/home');
     }
   }
 
@@ -23,4 +24,3 @@ export class DadosPokemonPage implements OnInit {
   }
 
 }
- 
